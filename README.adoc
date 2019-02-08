@@ -38,7 +38,7 @@ der @Maven Annotation mit angelegt.
 package com.github.funthomas424242.rades-validations;
 @Radesprojekt(
     @GroupId("com.github.funthomas424242")
-    @ArtifactId("rades-validations)
+    @ArtifactId("rades-validations")
     @Version(1.0.0-SNAPSHOT)
     @Maven
     @AsciiDoc
