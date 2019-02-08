@@ -36,21 +36,22 @@ der @Maven Annotation mit angelegt.
 [source, java]
 ----
 package com.github.funthomas424242.rades-validations;
-@Project( <1>
-    @GroupId("com.github.funthomas424242") <2>
-    @ArtifactId("rades-validations") <3>
-    @Version("1.0.0-SNAPSHOT") <4>
-    @Rades  <5>
-    @Maven <6>
-    @AsciiDoc <7>
+@Project( //<1>
+    @GroupId("com.github.funthomas424242") //<2>
+    @ArtifactId("rades-validations") //<3>
+    @Version("1.0.0-SNAPSHOT") //<4>
+    @Rades  //<5>
+    @Maven //<6>
+    @AsciiDoc //<7>
 )
 ----
-<1> Konfiguration der Projekstruktur
-<2> GroupId (analog zu Maven)
-<3> ArtifactId (analog zu Maven)
-<4> Version (analog zu Maven)
-<5> Projektstyle: Rades (radesstyled project)
-<6> Unterstützung für das Buildsystem Maven wird mit generiert
-<7> Unterstützung für das Dokumentationssystem asciidoc wird mit generiert
+
+<1> Konfiguration der Projekstruktur.
+<2> GroupId (analog zu Maven).
+<3> ArtifactId (analog zu Maven).
+<4> Version (analog zu Maven).
+<5> Projektstyle: Rades (radesstyled project).
+<6> Unterstützung für das Buildsystem Maven wird mit generiert.
+<7> Unterstützung für das Dokumentationssystem asciidoc wird mit generiert.
 
 
