@@ -8,4 +8,40 @@ image:https://codecov.io/gh/FunThomas424242/rades.scaffolding/branch/master/grap
 image:https://badge.waffle.io/FunThomas424242/rades.scaffolding.svg?columns=all["Waffle.io - Columns and their card count", link="https://waffle.io/FunThomas424242/rades.scaffolding"]
 
 # rades.scaffolding
-RADES Subprojekt zur Generierung benötigter Projektstrukturen - Aufsetzen von RADES styled Projekten
+Ein RADES Subprojekt zur Generierung benötigter Projektstrukturen - Aufsetzen von RADES styled Projekten
+
+
+## Konzept
+
+Das Projekt stellt Annotationen auf Package Level bereit. Diese können in Java Projekten über die Datei package-info.java
+verwendet werden. Die Annotationen können zur Generierung bestimmter Teile von RADES styled Projekten genutzt werden.
+Die wichtigste Annotation für den nachfolgenden Generierungprozess ist die @Radesprojekt Annotation.
+Die im folgenden beschriebenen Aspekte eines RADES Projektes sind für weitere Konfigurationen relevant.
+
+
+### Maven Build
+
+RADES Projekte werden im allgemeinen über maven gebaut und verteilt. Damit dies möglichst auf jeder Plattform funktioniert wird
+der https://www.baeldung.com/maven-wrapper[Maven Wrapper] verwendet. Dieser wird über die
+@Maven Annotation erzeugt. Er kann im Projektwurzelverzeichnis auch manuell erzeugt werden:
+
+`mvn -N io.takari:maven:wrapper -Dmaven=3.6.0`
+
+Zur Steuerung des Builds wird eine pom.xml Datei benötigt. Diese wird automatisch bei Verwendung
+der @Maven Annotation mit angelegt.
+
+#### Beispiel
+
+.package-info.java
+[source, java]
+----
+package com.github.funthomas424242.rades-validations;
+@Radesprojekt(
+    @GroupId("com.github.funthomas424242")
+    @ArtifactId("rades-validations)
+    @Version(1.0.0-SNAPSHOT)
+    @Maven
+    @AsciiDoc
+)
+----
+
