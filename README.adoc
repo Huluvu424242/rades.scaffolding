@@ -10,6 +10,33 @@ image:https://badge.waffle.io/FunThomas424242/rades.scaffolding.svg?columns=all[
 # rades.scaffolding
 Ein RADES Subprojekt zur Generierung benötigter Projektstrukturen - Aufsetzen von RADES styled Projekten
 
+## Generelle Eigenschaften von RADES Projekten
+
+* Der Sourcekode wird auf github gehostet und per ssh ausgecheckt
+* Es wird ein Maven Starter verwendet, damit das Projekt auf jeder Plattform mit der
+  gleichen Maven Version gebaut und entwickelt werden kann.
+* Build mittels Maven und pom.xml
+* Build prüft ob es aktuellere Version der Projek- oder Buildabhängigkeiten gibt
+* Versionierung sollte semantisch erfolgen
+* Dokumentation wird per asciidoc erstellt
+* Die Dokumentation wird in das Unterverzeichnis /docs generiert damit es sich auf github als site festlegen lässt
+* Diagramme werden per plantuml generiert
+* Release Bau erfolgt manuell, da der Maven Weg zu mühsam ist
+* Im Projektverzeichnis liegen README.adoc, LICENSE und Changelog.adoc
+* Ignoredfiles werden über .gitignore ausgeschlossen
+* IDE spezifische Files werden nicht eingecheckt
+* Editoreinstellungen werden über .editorconfig festgelegt
+* CI erfolgt über Travis-ci und es wird der Maven Starter statt maven direkt aufgerufen
+* Anforderungsabarbeitung erfolgt über waffle.io
+* Codingstyle wird über codacy geprüft
+* Testüberdeckung erfolgt durch codecov
+* Qualität der Testfälle wird über Mutationstests mit Framework pitest.org geprüft
+* Testfälle werden mit JUnit5 ausgeführt - nur wo 3th party libs JUnit4 benötigen wird beides supported
+* Neue Feature werden als issues in waffle.io eingestellt und über Branches
+  deren Name #issueId vorangestellt wird bearbeitet
+* Das umgesetzte Feature wird über Pull Request in den master gemerged
+*
+
 
 ## Konzept
 
@@ -55,3 +82,7 @@ package com.github.funthomas424242.rades-validations;
 <7> Unterstützung für das Dokumentationssystem asciidoc wird mit generiert.
 
 
+# Quellen im Neuland
+
+* https://www.intertech.com/Blog/whats-package-info-java-for/
+*
