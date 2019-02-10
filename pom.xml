@@ -83,6 +83,11 @@
       <scope>compile</scope>
     </dependency>
     <dependency>
+      <groupId>com.google.auto.service</groupId>
+      <artifactId>auto-service</artifactId>
+      <version>1.0-rc4</version>
+    </dependency>
+    <dependency>
       <groupId>org.slf4j</groupId>
       <artifactId>slf4j-api</artifactId>
       <version>1.7.25</version>
@@ -364,6 +369,7 @@
         <artifactId>pitest-maven</artifactId>
         <version>1.4.5</version>
         <configuration>
+          <skip>true</skip>
           <targetClasses>
             <param>com.github.funthomas424242.rades.fluentbuilder.*</param>
           </targetClasses>

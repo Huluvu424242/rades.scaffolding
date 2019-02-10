@@ -22,5 +22,10 @@ package com.github.funthomas424242.rades.scaffolding.project;
  * #L%
  */
 
-public @interface ArtifactId {
+import static org.junit.jupiter.api.Assertions.*;
+
+class ProjectAnnotationProcessorTest {
+
+
+
 }
