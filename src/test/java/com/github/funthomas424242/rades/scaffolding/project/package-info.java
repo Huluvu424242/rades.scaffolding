@@ -19,8 +19,22 @@
  * <http://www.gnu.org/licenses/lgpl-3.0.html>.
  * #L%
  */
-@Project(groupId = @GroupId , artifactId = @ArtifactId, version = @Version)
+@Project(projectRootDir = "../../../../../../../..",
+    groupId = "com.github.funthomas424242.rades",
+    artifactId = "scaffolding",
+    version = "1.0.0-SNAPSHOT")
+@Maven
+@Readme(ribons = @Ribons(travis = true, github = true)
+    , content = {@Paragraph("text"), @Paragraph("Blase.")}
+)
+@Github(user = "FunThomas424242", repository = "rades.scaffolding")
+@Bintray(user = "funthomas424242", repository = "funthomas424242-libs", packageName = "rades.scaffolding")
 package com.github.funthomas424242.rades.scaffolding.project;
 
 
-
+import com.github.funthomas424242.rades.scaffolding.build.Maven;
+import com.github.funthomas424242.rades.scaffolding.readme.Paragraph;
+import com.github.funthomas424242.rades.scaffolding.readme.Readme;
+import com.github.funthomas424242.rades.scaffolding.readme.Ribons;
+import com.github.funthomas424242.rades.scaffolding.services.Bintray;
+import com.github.funthomas424242.rades.scaffolding.services.Github;
