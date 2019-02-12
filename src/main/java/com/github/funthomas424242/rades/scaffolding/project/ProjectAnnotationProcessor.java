@@ -22,17 +22,21 @@ package com.github.funthomas424242.rades.scaffolding.project;
  * #L%
  */
 
+import com.github.funthomas424242.rades.scaffolding.AnnotationHelper;
 import com.google.auto.service.AutoService;
 
 import javax.annotation.processing.*;
 import javax.lang.model.element.TypeElement;
 import javax.lang.model.util.Elements;
 import javax.lang.model.util.Types;
+import java.lang.annotation.Annotation;
 import java.util.Set;
 
 @AutoService(Processor.class)
 @SupportedAnnotationTypes("com.github.funthomas424242.rades.scaffolding.project.Project")
 public class ProjectAnnotationProcessor extends AbstractProcessor {
+
+    protected AnnotationHelper annotationHelper = new AnnotationHelper();
 
 
     private Types typeUtils;
@@ -52,8 +56,18 @@ public class ProjectAnnotationProcessor extends AbstractProcessor {
 
     @Override
     public boolean process(Set<? extends TypeElement> annotations, RoundEnvironment roundEnv) {
-        for(TypeElement annotation:annotations){
-            System.out.println("###Annotation: "+annotation.getQualifiedName());
+        for (TypeElement annotation : annotations) {
+            System.out.println("###Annotation: " + annotation.getQualifiedName());
+
+            annotationHelper.computePackageAnnotation(roundEnv, annotation, (annotatedElement) -> {
+                System.out.println("Break3");
+                final Annotation projectAnnotation = annotatedElement.getAnnotation(Project.class);
+                System.out.println("###projectAnno: " + projectAnnotation.getClass().getCanonicalName().toString());
+                System.out.println("###groupId: " + ((Project) projectAnnotation).groupId());
+                System.out.println("####artifactId: " + ((Project) projectAnnotation).artifactId());
+                System.out.println("###version: " + ((Project) projectAnnotation).version());
+            });
+
         }
         return false;
     }
