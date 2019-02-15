@@ -25,28 +25,15 @@ package com.github.funthomas424242.rades.scaffolding;
 import dagger.Module;
 import dagger.Provides;
 
-import javax.annotation.processing.RoundEnvironment;
-import javax.inject.Inject;
-import javax.lang.model.element.Element;
-import javax.lang.model.element.ElementKind;
-import javax.lang.model.element.TypeElement;
-import java.util.Set;
-import java.util.function.Consumer;
-
-public class AnnotationHelper {
+@Module
+public class AnnotationHelperModule {
 
 
-    @Inject
-    public AnnotationHelper() {
+    @Provides
+    public static AnnotationHelper provideAnnotationHelper() {
+        System.out.println("####Helper bean creating");
+        return new AnnotationHelper();
     }
 
-    public void computePackageAnnotation(RoundEnvironment roundEnv, TypeElement annotation, Consumer<Element> consumer) {
-        final Set<? extends Element> annotatedElements = roundEnv.getElementsAnnotatedWith(annotation);
-        for (final Element annotatedElement : annotatedElements) {
-            if (annotatedElement.getKind() == ElementKind.PACKAGE) {
-                consumer.accept(annotatedElement);
-            }
-        }
-    }
 
 }

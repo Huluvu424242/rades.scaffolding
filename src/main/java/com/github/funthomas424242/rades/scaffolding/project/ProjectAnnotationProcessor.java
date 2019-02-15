@@ -23,9 +23,12 @@ package com.github.funthomas424242.rades.scaffolding.project;
  */
 
 import com.github.funthomas424242.rades.scaffolding.AnnotationHelper;
+import com.github.funthomas424242.rades.scaffolding.AnnotationHelperComponent;
+import com.github.funthomas424242.rades.scaffolding.DaggerAnnotationHelperComponent;
 import com.google.auto.service.AutoService;
 
 import javax.annotation.processing.*;
+import javax.inject.Inject;
 import javax.lang.model.element.TypeElement;
 import javax.lang.model.util.Elements;
 import javax.lang.model.util.Types;
@@ -36,8 +39,8 @@ import java.util.Set;
 @SupportedAnnotationTypes("com.github.funthomas424242.rades.scaffolding.project.Project")
 public class ProjectAnnotationProcessor extends AbstractProcessor {
 
-    protected AnnotationHelper annotationHelper = new AnnotationHelper();
-
+    @Inject
+    protected AnnotationHelper annotationHelper;
 
     private Types typeUtils;
     private Elements elementUtils;
@@ -52,6 +55,8 @@ public class ProjectAnnotationProcessor extends AbstractProcessor {
         elementUtils = processingEnv.getElementUtils();
         filer = processingEnv.getFiler();
         messager = processingEnv.getMessager();
+        final AnnotationHelperComponent daggerComponent = DaggerAnnotationHelperComponent.create();
+        annotationHelper = daggerComponent.maker();
     }
 
     @Override

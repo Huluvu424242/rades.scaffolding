@@ -64,6 +64,28 @@
     <maven>3.6.0</maven>
   </prerequisites>
 
+  <dependencyManagement>
+    <dependencies>
+      <dependency>
+        <groupId>com.google.dagger</groupId>
+        <artifactId>dagger</artifactId>
+        <version>2.21</version>
+      </dependency>
+      <dependency>
+        <groupId>com.google.dagger</groupId>
+        <artifactId>dagger-compiler</artifactId>
+        <version>2.21</version>
+      </dependency>
+      <dependency>
+        <groupId>com.google.guava</groupId>
+        <artifactId>guava</artifactId>
+        <version>27.0.1-jre</version>
+      </dependency>
+    </dependencies>
+
+  </dependencyManagement>
+
+
   <dependencies>
     <dependency>
       <groupId>com.github.funthomas424242</groupId>
@@ -79,7 +101,6 @@
     <dependency>
       <groupId>com.google.guava</groupId>
       <artifactId>guava</artifactId>
-      <version>27.0.1-jre</version>
       <scope>compile</scope>
     </dependency>
     <dependency>
@@ -106,6 +127,12 @@
       <version>2.0.0</version>
       <scope>compile</scope>
     </dependency>
+    <!-- https://mvnrepository.com/artifact/com.google.dagger/dagger -->
+    <dependency>
+      <groupId>com.google.dagger</groupId>
+      <artifactId>dagger</artifactId>
+    </dependency>
+
 
     <!-- Test Abhängigkeiten -->
     <dependency>
@@ -147,6 +174,7 @@
     <!--<scope>test</scope>-->
     <!--</dependency>-->
   </dependencies>
+
 
   <build>
     <pluginManagement>
@@ -333,12 +361,23 @@
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-compiler-plugin</artifactId>
-        <version>3.7.0</version>
         <configuration>
           <source>1.8</source>
           <target>1.8</target>
           <encoding>UTF-8</encoding>
           <compilerArgument>-Xlint:all</compilerArgument>
+          <annotationProcessorPaths>
+            <path>
+              <groupId>com.google.dagger</groupId>
+              <artifactId>dagger-compiler</artifactId>
+              <version>2.21</version>
+            </path>
+            <path>
+              <groupId>${project.groupId}</groupId>
+              <artifactId>${project.artifactId}</artifactId>
+              <version>${project.version}</version>
+            </path>
+          </annotationProcessorPaths>
         </configuration>
       </plugin>
       <plugin>
