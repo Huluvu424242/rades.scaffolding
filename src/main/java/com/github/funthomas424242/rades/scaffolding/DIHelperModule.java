@@ -26,13 +26,12 @@ import dagger.Module;
 import dagger.Provides;
 
 @Module
-public class AnnotationHelperModule {
+public class DIHelperModule {
 
 
     @Provides
-    public static AnnotationHelper provideAnnotationHelper() {
-        System.out.println("####Helper bean creating");
-        return new AnnotationHelper();
+    public static DIHelper provideAnnotationHelper() {
+        return new DIHelper();
     }
 
 

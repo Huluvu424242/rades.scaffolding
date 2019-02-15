@@ -22,9 +22,9 @@ package com.github.funthomas424242.rades.scaffolding.build;
  * #L%
  */
 
-import com.github.funthomas424242.rades.scaffolding.AnnotationHelper;
-import com.github.funthomas424242.rades.scaffolding.AnnotationHelperComponent;
-import com.github.funthomas424242.rades.scaffolding.DaggerAnnotationHelperComponent;
+import com.github.funthomas424242.rades.scaffolding.DIHelper;
+import com.github.funthomas424242.rades.scaffolding.DIHelperComponent;
+import com.github.funthomas424242.rades.scaffolding.DaggerDIHelperComponent;
 import com.github.funthomas424242.rades.scaffolding.project.Project;
 import com.google.auto.service.AutoService;
 
@@ -44,7 +44,7 @@ public class MavenAnnotationProcessor extends AbstractProcessor {
 
 
     @Inject
-    protected AnnotationHelper annotationHelper;
+    protected DIHelper DIHelper;
 
     private Types typeUtils;
     private Elements elementUtils;
@@ -69,17 +69,17 @@ public class MavenAnnotationProcessor extends AbstractProcessor {
         elementUtils = processingEnv.getElementUtils();
         filer = processingEnv.getFiler();
         messager = processingEnv.getMessager();
-        final AnnotationHelperComponent daggerComponent = DaggerAnnotationHelperComponent.create();
-        annotationHelper = daggerComponent.maker();
+        final DIHelperComponent daggerComponent = DaggerDIHelperComponent.create();
+        DIHelper = daggerComponent.maker();
     }
 
     @Override
     public boolean process(Set<? extends TypeElement> annotations, RoundEnvironment roundEnv) {
         for (TypeElement annotation : annotations) {
             System.out.println("###Annotation: " + annotation.getQualifiedName());
-            System.out.println("###DI: " + annotationHelper);
+            System.out.println("###DI: " + DIHelper);
 
-            annotationHelper.computePackageAnnotation(roundEnv, annotation, (annotatedElement) -> {
+            DIHelper.computePackageAnnotation(roundEnv, annotation, (annotatedElement) -> {
                 System.out.println("Break3");
                 final Annotation projectAnnotation = annotatedElement.getAnnotation(Project.class);
                 System.out.println("###projectAnno: " + projectAnnotation.getClass().getCanonicalName().toString());

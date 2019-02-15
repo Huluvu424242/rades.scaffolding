@@ -22,9 +22,9 @@ package com.github.funthomas424242.rades.scaffolding.project;
  * #L%
  */
 
-import com.github.funthomas424242.rades.scaffolding.AnnotationHelper;
-import com.github.funthomas424242.rades.scaffolding.AnnotationHelperComponent;
-import com.github.funthomas424242.rades.scaffolding.DaggerAnnotationHelperComponent;
+import com.github.funthomas424242.rades.scaffolding.DIHelper;
+import com.github.funthomas424242.rades.scaffolding.DIHelperComponent;
+import com.github.funthomas424242.rades.scaffolding.DaggerDIHelperComponent;
 import com.google.auto.service.AutoService;
 
 import javax.annotation.processing.*;
@@ -40,7 +40,7 @@ import java.util.Set;
 public class ProjectAnnotationProcessor extends AbstractProcessor {
 
     @Inject
-    protected AnnotationHelper annotationHelper;
+    protected DIHelper DIHelper;
 
     private Types typeUtils;
     private Elements elementUtils;
@@ -55,8 +55,8 @@ public class ProjectAnnotationProcessor extends AbstractProcessor {
         elementUtils = processingEnv.getElementUtils();
         filer = processingEnv.getFiler();
         messager = processingEnv.getMessager();
-        final AnnotationHelperComponent daggerComponent = DaggerAnnotationHelperComponent.create();
-        annotationHelper = daggerComponent.maker();
+        final DIHelperComponent daggerComponent = DaggerDIHelperComponent.create();
+        DIHelper = daggerComponent.maker();
     }
 
     @Override
@@ -64,7 +64,7 @@ public class ProjectAnnotationProcessor extends AbstractProcessor {
         for (TypeElement annotation : annotations) {
             System.out.println("###Annotation: " + annotation.getQualifiedName());
 
-            annotationHelper.computePackageAnnotation(roundEnv, annotation, (annotatedElement) -> {
+            DIHelper.computePackageAnnotation(roundEnv, annotation, (annotatedElement) -> {
                 System.out.println("Break3");
                 final Annotation projectAnnotation = annotatedElement.getAnnotation(Project.class);
                 System.out.println("###projectAnno: " + projectAnnotation.getClass().getCanonicalName().toString());

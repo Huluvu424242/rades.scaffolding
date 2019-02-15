@@ -22,13 +22,31 @@ package com.github.funthomas424242.rades.scaffolding;
  * #L%
  */
 
-import dagger.Component;
+import dagger.Module;
+import dagger.Provides;
 
-@Component(modules = {AnnotationHelperModule.class})
-public interface AnnotationHelperComponent {
+import javax.annotation.processing.RoundEnvironment;
+import javax.inject.Inject;
+import javax.lang.model.element.Element;
+import javax.lang.model.element.ElementKind;
+import javax.lang.model.element.TypeElement;
+import java.util.Set;
+import java.util.function.Consumer;
+
+public class DIHelper {
 
 
-    AnnotationHelper maker();
+    @Inject
+    public DIHelper() {
+    }
 
+    public void computePackageAnnotation(RoundEnvironment roundEnv, TypeElement annotation, Consumer<Element> consumer) {
+        final Set<? extends Element> annotatedElements = roundEnv.getElementsAnnotatedWith(annotation);
+        for (final Element annotatedElement : annotatedElements) {
+            if (annotatedElement.getKind() == ElementKind.PACKAGE) {
+                consumer.accept(annotatedElement);
+            }
+        }
+    }
 
 }
