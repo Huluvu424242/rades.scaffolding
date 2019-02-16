@@ -10,12 +10,12 @@ package com.github.funthomas424242.rades.scaffolding.project;
  * it under the terms of the GNU Lesser General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Lesser Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Lesser Public
  * License along with this program.  If not, see
  * <http://www.gnu.org/licenses/lgpl-3.0.html>.
@@ -25,7 +25,6 @@ package com.github.funthomas424242.rades.scaffolding.project;
 import com.github.funthomas424242.rades.scaffolding.DIHelper;
 import com.github.funthomas424242.rades.scaffolding.DIHelperComponent;
 import com.github.funthomas424242.rades.scaffolding.DaggerDIHelperComponent;
-import com.google.auto.service.AutoService;
 
 import javax.annotation.processing.*;
 import javax.inject.Inject;
@@ -35,12 +34,11 @@ import javax.lang.model.util.Types;
 import java.lang.annotation.Annotation;
 import java.util.Set;
 
-@AutoService(Processor.class)
 @SupportedAnnotationTypes("com.github.funthomas424242.rades.scaffolding.project.Project")
 public class ProjectAnnotationProcessor extends AbstractProcessor {
 
     @Inject
-    protected DIHelper DIHelper;
+    protected DIHelper diHelper;
 
     private Types typeUtils;
     private Elements elementUtils;
@@ -51,12 +49,13 @@ public class ProjectAnnotationProcessor extends AbstractProcessor {
     @Override
     public synchronized void init(final ProcessingEnvironment processingEnv) {
         super.init(processingEnv);
+        System.out.println("### init");
         typeUtils = processingEnv.getTypeUtils();
         elementUtils = processingEnv.getElementUtils();
         filer = processingEnv.getFiler();
         messager = processingEnv.getMessager();
         final DIHelperComponent daggerComponent = DaggerDIHelperComponent.create();
-        DIHelper = daggerComponent.maker();
+        diHelper = daggerComponent.maker();
     }
 
     @Override
@@ -64,7 +63,7 @@ public class ProjectAnnotationProcessor extends AbstractProcessor {
         for (TypeElement annotation : annotations) {
             System.out.println("###Annotation: " + annotation.getQualifiedName());
 
-            DIHelper.computePackageAnnotation(roundEnv, annotation, (annotatedElement) -> {
+            diHelper.computePackageAnnotation(roundEnv, annotation, (annotatedElement) -> {
                 System.out.println("Break3");
                 final Annotation projectAnnotation = annotatedElement.getAnnotation(Project.class);
                 System.out.println("###projectAnno: " + projectAnnotation.getClass().getCanonicalName().toString());
