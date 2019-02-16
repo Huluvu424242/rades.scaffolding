@@ -22,18 +22,9 @@ package com.github.funthomas424242.rades.scaffolding;
  * #L%
  */
 
-import dagger.Module;
-import dagger.Provides;
-
-import javax.annotation.processing.RoundEnvironment;
 import javax.inject.Inject;
-import javax.lang.model.element.Element;
-import javax.lang.model.element.ElementKind;
-import javax.lang.model.element.TypeElement;
-import java.util.Set;
-import java.util.function.Consumer;
 
-public class DIHelper implements AnnotationHelper{
+public class DIHelper implements AnnotationHelper {
 
     @Inject
     public DIHelper() {
