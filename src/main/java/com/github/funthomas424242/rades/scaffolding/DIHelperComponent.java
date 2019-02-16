@@ -27,6 +27,6 @@ import dagger.Component;
 @Component(modules = {DIHelperModule.class})
 public interface DIHelperComponent {
 
-    DIHelper maker();
+    DIHelper getDIHelper();
 
 }

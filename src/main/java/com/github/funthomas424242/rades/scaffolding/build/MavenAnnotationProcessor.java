@@ -61,20 +61,18 @@ public class MavenAnnotationProcessor extends AbstractProcessor {
     @Override
     public synchronized void init(final ProcessingEnvironment processingEnv) {
         super.init(processingEnv);
-        System.out.println("### init");
         typeUtils = processingEnv.getTypeUtils();
         elementUtils = processingEnv.getElementUtils();
         filer = processingEnv.getFiler();
         messager = processingEnv.getMessager();
-        final DIHelperComponent daggerComponent = DaggerDIHelperComponent.create();
-        diHelper = daggerComponent.maker();
+        final DIHelperComponent diHelperComponent = DaggerDIHelperComponent.create();
+        diHelper = diHelperComponent.getDIHelper();
     }
 
     @Override
     public boolean process(Set<? extends TypeElement> annotations, RoundEnvironment roundEnv) {
         for (TypeElement annotation : annotations) {
             System.out.println("###Annotation: " + annotation.getQualifiedName());
-            System.out.println("###DI: " + diHelper);
 
             diHelper.computePackageAnnotation(roundEnv, annotation, (annotatedElement) -> {
                 System.out.println("Break3");
