@@ -29,7 +29,7 @@ import dagger.Provides;
 public class DIHelperModule {
 
     @Provides
-    public static DIHelper provideAnnotationHelper() {
+    public static DIHelper provideDIHelper() {
         return new DIHelper();
     }
 
