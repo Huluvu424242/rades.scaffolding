@@ -49,13 +49,20 @@ public class AnnotationHelper {
         return InstanceHolder.INSTANCE;
     }
 
-    public void computePackageAnnotation(RoundEnvironment roundEnv, TypeElement annotation, Consumer<Element> consumer) {
+    public boolean computePackageAnnotation(RoundEnvironment roundEnv, TypeElement annotation,
+                                            Consumer<Element> onSuccess, ErrorCallback onError) {
+        boolean noErrorOccured = true;
+
         final Set<? extends Element> annotatedElements = roundEnv.getElementsAnnotatedWith(annotation);
         for (final Element annotatedElement : annotatedElements) {
             if (annotatedElement.getKind() == ElementKind.PACKAGE) {
-                consumer.accept(annotatedElement);
+                onSuccess.accept(annotatedElement);
+            } else {
+                onError.addError(annotation, "Nur für package nutzbar.", annotatedElement);
+                noErrorOccured = false;
             }
         }
+        return noErrorOccured;
     }
 
 }

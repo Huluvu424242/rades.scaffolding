@@ -23,16 +23,18 @@ package com.github.funthomas424242.rades.scaffolding.build;
  */
 
 import com.github.funthomas424242.rades.scaffolding.DIHelper;
-import com.github.funthomas424242.rades.scaffolding.DIHelperComponent;
 import com.github.funthomas424242.rades.scaffolding.DaggerDIHelperComponent;
+import com.github.funthomas424242.rades.scaffolding.ErrorCallback;
 import com.github.funthomas424242.rades.scaffolding.project.Project;
+import io.vavr.control.Option;
 
 import javax.annotation.processing.*;
 import javax.lang.model.SourceVersion;
+import javax.lang.model.element.Element;
 import javax.lang.model.element.TypeElement;
 import javax.lang.model.util.Elements;
 import javax.lang.model.util.Types;
-import java.lang.annotation.Annotation;
+import javax.tools.Diagnostic;
 import java.util.LinkedHashSet;
 import java.util.Set;
 
@@ -70,20 +72,45 @@ public class MavenAnnotationProcessor extends AbstractProcessor {
 
     @Override
     public boolean process(Set<? extends TypeElement> annotations, RoundEnvironment roundEnv) {
+        boolean noErrorOccured = true;
+
         for (TypeElement annotation : annotations) {
             System.out.println("###Annotation: " + annotation.getQualifiedName());
 
-            diHelper.createAnnotationHelper().computePackageAnnotation(roundEnv, annotation, (annotatedElement) -> {
-                System.out.println("Break3");
-                final Annotation projectAnnotation = annotatedElement.getAnnotation(Project.class);
-                System.out.println("###projectAnno: " + projectAnnotation.getClass().getCanonicalName().toString());
-                System.out.println("###groupId: " + ((Project) projectAnnotation).groupId());
-                System.out.println("####artifactId: " + ((Project) projectAnnotation).artifactId());
-                System.out.println("###version: " + ((Project) projectAnnotation).version());
-            });
-
+            noErrorOccured = diHelper.createAnnotationHelper().computePackageAnnotation(roundEnv, annotation,
+                (annotatedElement) -> {
+                    System.out.println("Break3" + annotatedElement);
+                    Option.of(annotatedElement.getAnnotation(Project.class)).onDefined((projectAnno) -> {
+                        System.out.println("Projekt Annotation:" + projectAnno);
+                        System.out.println("###projectAnno: " + projectAnno.getClass().getCanonicalName().toString());
+                        System.out.println("###groupId: " + ((Project) projectAnno).groupId());
+                        System.out.println("####artifactId: " + ((Project) projectAnno).artifactId());
+                        System.out.println("###version: " + ((Project) projectAnno).version());
+                    }).orElse(() -> {
+                        printErrorMessage(annotatedElement, "missing @Project");
+                        return null;
+                    });
+                }
+                , getErrorCallback()
+            ) && noErrorOccured;
         }
-        return false;
+        return noErrorOccured;
+    }
+
+    protected ErrorCallback getErrorCallback() {
+        return new ErrorCallback() {
+            @Override
+            public void addError(Element element, String message, Object... args) {
+                printErrorMessage(element, message, args);
+            }
+        };
+    }
+
+    public void printErrorMessage(Element element, String message, Object... args) {
+        messager.printMessage(
+            Diagnostic.Kind.ERROR,
+            String.format(message, args),
+            element);
     }
 
 
