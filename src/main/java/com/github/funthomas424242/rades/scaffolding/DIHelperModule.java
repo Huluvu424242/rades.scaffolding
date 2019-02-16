@@ -28,7 +28,6 @@ import dagger.Provides;
 @Module
 public class DIHelperModule {
 
-
     @Provides
     public static DIHelper provideAnnotationHelper() {
         return new DIHelper();

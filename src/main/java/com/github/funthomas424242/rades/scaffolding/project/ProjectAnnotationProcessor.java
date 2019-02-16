@@ -54,8 +54,7 @@ public class ProjectAnnotationProcessor extends AbstractProcessor {
         elementUtils = processingEnv.getElementUtils();
         filer = processingEnv.getFiler();
         messager = processingEnv.getMessager();
-        final DIHelperComponent diHelperComponent = DaggerDIHelperComponent.create();
-        diHelper = diHelperComponent.getDIHelper();
+        diHelper = DaggerDIHelperComponent.create().getDIHelper();
     }
 
     @Override
