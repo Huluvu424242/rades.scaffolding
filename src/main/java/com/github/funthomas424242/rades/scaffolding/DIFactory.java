@@ -22,12 +22,10 @@ package com.github.funthomas424242.rades.scaffolding;
  * #L%
  */
 
-import javax.inject.Inject;
+//@RadesDIHelper
+public interface DIFactory {
 
-public class DIHelper implements DIFactory {
-
-    @Inject
-    public DIHelper() {
+    default AnnotationHelper createAnnotationHelper() {
+        return AnnotationHelper.getInstance();
     }
-
 }

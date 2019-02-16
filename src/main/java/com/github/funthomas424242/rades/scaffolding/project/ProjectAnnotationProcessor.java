@@ -63,7 +63,7 @@ public class ProjectAnnotationProcessor extends AbstractProcessor {
         for (TypeElement annotation : annotations) {
             System.out.println("###Annotation: " + annotation.getQualifiedName());
 
-            diHelper.computePackageAnnotation(roundEnv, annotation, (annotatedElement) -> {
+            diHelper.createAnnotationHelper().computePackageAnnotation(roundEnv, annotation, (annotatedElement) -> {
                 System.out.println("Break3");
                 final Annotation projectAnnotation = annotatedElement.getAnnotation(Project.class);
                 System.out.println("###projectAnno: " + projectAnnotation.getClass().getCanonicalName().toString());
