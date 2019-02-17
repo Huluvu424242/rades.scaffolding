@@ -87,4 +87,5 @@ package com.github.funthomas424242.rades-validations;
 * https://www.intertech.com/Blog/whats-package-info-java-for/
 * https://google.github.io/dagger/
 * http://hannesdorfmann.com/annotation-processing/annotationprocessing101
-*
+* https://www.baeldung.com/maven-wrapper
+
