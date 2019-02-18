@@ -85,7 +85,11 @@ package com.github.funthomas424242.rades-validations;
 # Quellen im Neuland
 
 * https://www.intertech.com/Blog/whats-package-info-java-for/
-* https://google.github.io/dagger/
 * http://hannesdorfmann.com/annotation-processing/annotationprocessing101
+* https://stackoverflow.com/questions/679177/annotation-member-which-holds-other-annotations
+* https://stackoverflow.com/questions/17959728/annotation-processor-generating-a-compiler-error
 * https://www.baeldung.com/maven-wrapper
+* https://google.github.io/dagger/
+* https://asciidoctor.org/docs/asciidoc-syntax-quick-reference/#source-code
+
 
